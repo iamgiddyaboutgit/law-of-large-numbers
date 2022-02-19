@@ -1,0 +1,12 @@
+wine_varieties = c("Zinfandel", "Merlot", "Cabernet")
+wines = rep.int(seq_along(wine_varieties), times = c(8, 10, 12))
+
+is_trial_a_success = function(){
+  wine_selection = sample(wines, size = 6)
+  
+  variety_counts = tabulate(wine_selection, nbins = length(wine_varieties))
+  
+  # A success for 30d is if two bottles of each variety
+  # are chosen.
+  return(identical(variety_counts, rep.int(2L, 3L)))
+}
