@@ -2,7 +2,8 @@
 # See: https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Parallel_algorithm
 # 
 # Calculate the grand sample mean and sum of squared deviations
-# using summary statistics from two independent simple random samples # of the same population.
+# using summary statistics from two independent simple random samples 
+# of the same population.
 # input:
 # n1: integer. Number of observations in sample 1.
 # x1_dot_bar: numeric. Sample mean of sample 1.

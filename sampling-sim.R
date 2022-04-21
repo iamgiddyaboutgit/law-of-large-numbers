@@ -1,14 +1,7 @@
 library(lubridate)
 
-# Obtain an estimate of the probability of event A using simulation.
-# Do this by generating a sequence of Bernoulli random variables,  
-# X1, X2, . . ., Xn, where Xi = 1 if the event A occurs 
-# and 0 if the event A does not occur.
-# Use the sample mean of these random variables as an
-# estimator of P(A).
-
 source("stats-playground.R")
-source("30d-2nd-try.R")
+source("X.R")
 
 ######################################################
 # Run the below code according to your patience.
@@ -19,7 +12,7 @@ wait = seconds(1) # change according to patience level
 # until your patience has expired.
 while (Sys.time() < current_time + wait) {
   for(i in seq_len(1e4)) {
-    existing_aggregate = welford(is_trial_a_success(), existing_aggregate)
+    existing_aggregate = welford(X(), existing_aggregate)
   }
 }
 
@@ -37,9 +30,21 @@ standard_error_of_mean = sqrt(SS/(n - 1)) / sqrt(n)
 margin_of_error = qt(p = mean(conf_level, 1), 
                      df = n - 1) * standard_error_of_mean
 
-LB = max(0, xn_bar - margin_of_error)
+# Uncomment and modify these to match the known
+# support of the random variable X.
+# known_LB = 0
+# known_UB = 1
+if (exists("known_LB")) {
+  LB = max(known_LB, xn_bar - margin_of_error)
+} else {
+  LB = max(xn_bar - margin_of_error)
+}
 
-UB = min(1, xn_bar + margin_of_error)
+if (exists("known_UB")) {
+  UB = min(known_UB, xn_bar + margin_of_error)
+} else {
+  UB = min(xn_bar + margin_of_error)
+}
 
 if (exists("xn_bar_data")) {
   xn_bar_data = rbind(xn_bar_data[seq.int(max(1, nrow(xn_bar_data) - 28L), nrow(xn_bar_data)), ], cbind(n, xn_bar, conf_level, LB, UB))
@@ -49,5 +54,5 @@ if (exists("xn_bar_data")) {
 
 print(xn_bar_data)
 
-matplot(x = xn_bar_data[, "n", drop = FALSE], y = xn_bar_data[, colnames(xn_bar_data) %in% c("LB", "UB"), drop = FALSE], type = "l", main = "Estimation of P(A)", xlab = "n", ylab = "xn_bar")
+matplot(x = xn_bar_data[, "n", drop = FALSE], y = xn_bar_data[, colnames(xn_bar_data) %in% c("LB", "UB"), drop = FALSE], type = "l", main = "Estimation of E(X)", xlab = "n", ylab = "xn_bar")
 
