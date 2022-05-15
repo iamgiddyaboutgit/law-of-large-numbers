@@ -5,6 +5,7 @@ source("X.R")
 
 ######################################################
 # Run the below code according to your patience.
+# Do not collapse or code could magically disappear!
 current_time = Sys.time()
 wait = seconds(1) # change according to patience level
 
@@ -19,7 +20,7 @@ while (Sys.time() < current_time + wait) {
 # Based on the current sample mean and its
 # standard error, construct a CI for the population mean.
 
-conf_level = 0.80 #change according to desire
+conf_level = 0.99 #change according to desire
 
 n = existing_aggregate[1]
 xn_bar = existing_aggregate[2]
