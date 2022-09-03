@@ -7,7 +7,7 @@ source("X.R")
 # Run the below code according to your patience.
 # Do not collapse or code could magically disappear!
 current_time = Sys.time()
-wait = seconds(1) # change according to patience level
+wait = seconds(0.1) # change according to patience level
 
 # Perform 10,000 simulations over and over
 # until your patience has expired.
